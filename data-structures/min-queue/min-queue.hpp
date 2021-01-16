@@ -1,6 +1,5 @@
 #ifndef MINQUEUE_HPP
 #define MINQUEUE_HPP
-#include <algorithm>
 #include <bits/stdc++.h>
 
 template <typename T> class MinHeadQueue {
@@ -92,7 +91,6 @@ public:
 
 private:
   std::stack<std::pair<T, T>> s1, s2;
-  std::size_t _n_added = 0, _n_removed = 0;
 };
 
 #endif // MINQUEUE_HPP
