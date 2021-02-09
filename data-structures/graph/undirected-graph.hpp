@@ -1,17 +1,17 @@
-#ifndef BIDIRECTIONAL_GRAPH_HPP
-#define BIDIRECTIONAL_GRAPH_HPP
+#ifndef UNDIRECTED_GRAPH_HPP
+#define UNDIRECTED_GRAPH_HPP
 
 #include <bits/stdc++.h>
 /*
- * Implementation of bidirectional graph using adjacency list
+ * Implementation of undirected graph using adjacency list
  */
-class BidirectionalGraph {
+class UndirectedGraph {
 private:
   std::vector<std::vector<int>> _data;
 
 public:
   // resize _data vector to hold given nodes
-  BidirectionalGraph(int n_nodes) : _data(n_nodes) {}
+  UndirectedGraph(int n_nodes) : _data(n_nodes) {}
   void connect(int source, int to) {
     if (source >= 0 and source < _data.size() and to >= 0 and
         to < _data.size()) {
@@ -24,4 +24,4 @@ public:
   }
 };
 
-#endif // BIDIRECTIONAL_GRAPH_HPP
+#endif // UNDIRECTED_GRAPH_HPP
