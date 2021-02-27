@@ -1,1 +1,8 @@
 a.out
+
+# ignore all
+*
+# don't ignore directories
+!*/
+# don't ignore files with extensions
+!*.*
