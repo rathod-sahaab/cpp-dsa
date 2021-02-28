@@ -39,23 +39,47 @@ public:
     }
   }
 
-  bool empty() { return _data.empty(); }
-  T top() { return _data.front(); }
+  bool empty() const noexcept { return _data.empty(); }
+  T top() const noexcept { return _data.front(); }
 
-  /*
-  T pop() {
-    std::swap(_data.front(), _data.back());
+  void pop() {
+    if (_data.size() > 1) {
+      std::swap(_data.front(), _data.back());
+    }
     _data.pop_back();
 
-    for (int i = 0; i < _data.size(); ++i) {
-      if (_comp(_data[i],
-                std::min(_data[2 * i + 1], _data[2 * i + 2], _comp))) {
+    for (int i = 0; i < _data.size();) {
+      int heapier_child = -1;
+      // heapier: better accroding to heap property
+
+      int left_child = 2 * i + 1;
+      int right_child = 2 * i + 2;
+
+      if (left_child < _data.size()) {
+        if (right_child < _data.size() and
+            _comp(_data[right_child], _data[left_child])) {
+          // right_child exits and is heapier than left child
+          heapier_child = right_child;
+        } else {
+          // right_child doesn't exits or is less heapier than left_child
+          heapier_child = left_child;
+        }
+
+        if (_comp(_data[heapier_child], _data[i])) {
+          // child is heapier than parent
+          std::swap(_data[heapier_child], _data[i]);
+        } else {
+          // parent is heapier than both children, correct place
+          break;
+        }
+
+      } else {
+        // this node has no child already in correct postion
         break;
-      } else if (_comp(_data[2 * i 1])) {
       }
     }
   }
-  */
+
   void print() {
     copy(begin(_data), end(_data),
          std::ostream_iterator<decltype(_data[0])>{std::cout, " "});
