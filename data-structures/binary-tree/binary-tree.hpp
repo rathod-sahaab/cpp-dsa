@@ -20,6 +20,7 @@ template <typename T> class BinaryTree {
   BinaryNode<T> *_root = nullptr;
 
   std::vector<T> _pre_order_traversal() const noexcept;
+  std::vector<T> _in_order_traversal() const noexcept;
 
 public:
   // constructors, asssignment, destructor
@@ -120,18 +121,6 @@ bool BinaryTree<T>::breadth_first_search(T val) const noexcept {
 }
 
 template <typename T>
-std::vector<T> BinaryTree<T>::traverse(TreeTraversalMode mode) const noexcept {
-  switch (mode) {
-  case TreeTraversalMode::PRE_ORDER:
-    return _pre_order_traversal();
-  case TreeTraversalMode::POST_ORDER:
-    return {};
-  case TreeTraversalMode::IN_ORDER:
-    return {};
-  }
-}
-
-template <typename T>
 std::vector<T> BinaryTree<T>::_pre_order_traversal() const noexcept {
   std::vector<T> result;
   std::stack<BinaryNode<T> *> s;
@@ -157,4 +146,41 @@ std::vector<T> BinaryTree<T>::_pre_order_traversal() const noexcept {
   return result;
 }
 
+template <typename T>
+std::vector<T> BinaryTree<T>::_in_order_traversal() const noexcept {
+  std::vector<T> result;
+  std::stack<BinaryNode<T> *> s;
+
+  auto current = _root;
+
+  while (true) {
+    while (current->left) {
+      s.push(current);
+      current = current->left;
+    }
+
+    while (current->right == nullptr) {
+      result.push_back(current->value);
+      if (s.empty()) {
+        return result;
+      }
+      current = s.top();
+      s.pop();
+    }
+    result.push_back(current->value);
+    current = current->right;
+  }
+}
+
+template <typename T>
+std::vector<T> BinaryTree<T>::traverse(TreeTraversalMode mode) const noexcept {
+  switch (mode) {
+  case TreeTraversalMode::PRE_ORDER:
+    return _pre_order_traversal();
+  case TreeTraversalMode::POST_ORDER:
+    return {};
+  case TreeTraversalMode::IN_ORDER:
+    return _in_order_traversal();
+  }
+}
 #endif // BINARY_TREE_HPP

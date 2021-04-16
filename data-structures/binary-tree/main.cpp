@@ -13,22 +13,32 @@ int main() {
   bt.insert(1);
   bt.insert(2);
 
-  const auto traversal = bt.traverse(TreeTraversalMode::PRE_ORDER);
+  const auto traversal_pre = bt.traverse(TreeTraversalMode::PRE_ORDER);
+  const auto traversal_in = bt.traverse(TreeTraversalMode::IN_ORDER);
 
-  std::vector<int> expected{
+  std::vector<int> expected_pre{
       3, 1, 2, 4, 10, 7, 5,
-  };
+  },
+      expected_in{
+          1, 2, 3, 4, 5, 7, 10,
+      };
   std::vector<int> not_expected{
-      2, 4, 10, 7, 5,
+      2, 4, 7, 5, 10,
   };
 
-  copy(std::begin(traversal), std::end(traversal),
-       std::ostream_iterator<decltype(traversal[0])>{std::cout, ", "});
-
+  std::cout << "PRE_ORDER: ";
+  copy(std::begin(traversal_pre), std::end(traversal_pre),
+       std::ostream_iterator<decltype(traversal_pre[0])>{std::cout, ", "});
   std::cout << "\n";
 
-  assert(traversal == expected);
-  assert(traversal != not_expected);
+  std::cout << "IN_ORDER: ";
+  copy(std::begin(traversal_in), std::end(traversal_in),
+       std::ostream_iterator<decltype(traversal_in[0])>{std::cout, ", "});
+  std::cout << "\n";
+
+  assert(traversal_pre == expected_pre);
+  assert(traversal_in == expected_in);
+  assert(traversal_pre != not_expected);
 
   return 0;
 }
