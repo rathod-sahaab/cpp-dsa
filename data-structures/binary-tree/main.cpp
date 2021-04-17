@@ -53,5 +53,11 @@ int main() {
   assert(traversal_in != not_expected);
   assert(traversal_post != not_expected);
 
+  assert(bt.breadth_first_search(3) == true);
+  assert(bt.breadth_first_search(INT16_MIN) == false);
+
+  assert(bt.depth_first_search(3) == true);
+  assert(bt.depth_first_search(INT16_MIN) == false);
+
   return 0;
 }

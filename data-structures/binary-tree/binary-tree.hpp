@@ -87,12 +87,20 @@ template <typename T> void BinaryTree<T>::insert(T val) {
 
 template <typename T>
 bool BinaryTree<T>::depth_first_search(T val) const noexcept {
-  std::stack<BinaryNode<T> *> s;
+  if (not _root) {
+    return false;
+  }
 
+  std::stack<BinaryNode<T> *> s;
   s.push(_root);
+
   while (not s.empty()) {
     auto current = s.top();
     s.pop();
+
+    if (current->value == val) {
+      return true;
+    }
 
     if (current->right) {
       s.push(current->right);
@@ -101,16 +109,26 @@ bool BinaryTree<T>::depth_first_search(T val) const noexcept {
       s.push(current->left);
     }
   }
+
+  return false;
 }
 
 template <typename T>
 bool BinaryTree<T>::breadth_first_search(T val) const noexcept {
-  std::queue<BinaryNode<T>> q;
+  if (not _root) {
+    return false;
+  }
 
+  std::queue<BinaryNode<T> *> q;
   q.push(_root);
+
   while (not q.empty()) {
     auto current = q.front();
     q.pop();
+
+    if (current->value == val) {
+      return true;
+    }
 
     if (current->left) {
       q.push(current->left);
@@ -119,6 +137,8 @@ bool BinaryTree<T>::breadth_first_search(T val) const noexcept {
       q.push(current->right);
     }
   }
+
+  return false;
 }
 
 template <typename T>
@@ -182,7 +202,7 @@ std::vector<T> BinaryTree<T>::_post_order_traversal() const noexcept {
 
   std::stack<BinaryNode<T> *> s;
 
-  auto current = _root, prev = _root;
+  BinaryNode<T> *current = _root, *prev = _root;
 
   while (true) {
     while (current->left) {
