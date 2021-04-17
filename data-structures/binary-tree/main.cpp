@@ -56,6 +56,7 @@ int main() {
        std::ostream_iterator<decltype(traversal_level[0])>{std::cout, ", "});
   std::cout << "\n";
 
+  // Will fail in debug builds if some bug otherwise silent
   assert(traversal_pre == expected_pre);
   assert(traversal_in == expected_in);
   assert(traversal_post == expected_post);
@@ -71,6 +72,9 @@ int main() {
 
   assert(bst.depth_first_search(3) == true);
   assert(bst.depth_first_search(INT16_MIN) == false);
+
+  assert(bst.binary_search(3) == true);
+  assert(bst.binary_search(INT16_MIN) == false);
 
   return 0;
 }
