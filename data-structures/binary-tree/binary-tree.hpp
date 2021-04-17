@@ -21,6 +21,7 @@ template <typename T> class BinaryTree {
 
   std::vector<T> _pre_order_traversal() const noexcept;
   std::vector<T> _in_order_traversal() const noexcept;
+  std::vector<T> _post_order_traversal() const noexcept;
 
 public:
   // constructors, asssignment, destructor
@@ -173,12 +174,46 @@ std::vector<T> BinaryTree<T>::_in_order_traversal() const noexcept {
 }
 
 template <typename T>
+std::vector<T> BinaryTree<T>::_post_order_traversal() const noexcept {
+  std::vector<T> result;
+  if (_root == nullptr) {
+    return result;
+  }
+
+  std::stack<BinaryNode<T> *> s;
+
+  auto current = _root, prev = _root;
+
+  while (true) {
+    while (current->left) {
+      s.push(current);
+      current = current->left;
+    }
+
+    while (current->right == nullptr or current->right == prev) {
+      result.push_back(current->value);
+
+      if (s.empty()) {
+        return result;
+      }
+
+      prev = current;
+      current = s.top();
+      s.pop();
+    }
+
+    s.push(current);
+    current = current->right;
+  }
+}
+
+template <typename T>
 std::vector<T> BinaryTree<T>::traverse(TreeTraversalMode mode) const noexcept {
   switch (mode) {
   case TreeTraversalMode::PRE_ORDER:
     return _pre_order_traversal();
   case TreeTraversalMode::POST_ORDER:
-    return {};
+    return _post_order_traversal();
   case TreeTraversalMode::IN_ORDER:
     return _in_order_traversal();
   }

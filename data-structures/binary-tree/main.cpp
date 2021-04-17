@@ -15,12 +15,16 @@ int main() {
 
   const auto traversal_pre = bt.traverse(TreeTraversalMode::PRE_ORDER);
   const auto traversal_in = bt.traverse(TreeTraversalMode::IN_ORDER);
+  const auto traversal_post = bt.traverse(TreeTraversalMode::POST_ORDER);
 
   std::vector<int> expected_pre{
       3, 1, 2, 4, 10, 7, 5,
   },
       expected_in{
           1, 2, 3, 4, 5, 7, 10,
+      },
+      expected_post{
+          2, 1, 5, 7, 10, 4, 3,
       };
   std::vector<int> not_expected{
       2, 4, 7, 5, 10,
@@ -36,9 +40,18 @@ int main() {
        std::ostream_iterator<decltype(traversal_in[0])>{std::cout, ", "});
   std::cout << "\n";
 
+  std::cout << "POST_ORDER: ";
+  copy(std::begin(traversal_post), std::end(traversal_post),
+       std::ostream_iterator<decltype(traversal_post[0])>{std::cout, ", "});
+  std::cout << "\n";
+
   assert(traversal_pre == expected_pre);
   assert(traversal_in == expected_in);
+  assert(traversal_post == expected_post);
+
   assert(traversal_pre != not_expected);
+  assert(traversal_in != not_expected);
+  assert(traversal_post != not_expected);
 
   return 0;
 }
