@@ -1,22 +1,24 @@
-#include "binary-tree.hpp"
+#include "binary-search-tree.hpp"
+
 #include <algorithm>
 #include <cassert>
 #include <vector>
+
 int main() {
-  BinaryTree<int> bt;
+  BinarySearchTree<int> bst;
 
-  bt.insert(3);
-  bt.insert(4);
-  bt.insert(10);
-  bt.insert(7);
-  bt.insert(5);
-  bt.insert(1);
-  bt.insert(2);
+  bst.insert(3);
+  bst.insert(4);
+  bst.insert(10);
+  bst.insert(7);
+  bst.insert(5);
+  bst.insert(1);
+  bst.insert(2);
 
-  const auto traversal_pre = bt.traverse(TreeTraversalMode::PRE_ORDER);
-  const auto traversal_in = bt.traverse(TreeTraversalMode::IN_ORDER);
-  const auto traversal_post = bt.traverse(TreeTraversalMode::POST_ORDER);
-  const auto traversal_level = bt.traverse(TreeTraversalMode::LEVEL_ORDER);
+  const auto traversal_pre = bst.traverse(TreeTraversalMode::PRE_ORDER);
+  const auto traversal_in = bst.traverse(TreeTraversalMode::IN_ORDER);
+  const auto traversal_post = bst.traverse(TreeTraversalMode::POST_ORDER);
+  const auto traversal_level = bst.traverse(TreeTraversalMode::LEVEL_ORDER);
 
   std::vector<int> expected_pre{
       3, 1, 2, 4, 10, 7, 5,
@@ -64,11 +66,11 @@ int main() {
   assert(traversal_post != not_expected);
   assert(traversal_level != not_expected);
 
-  assert(bt.breadth_first_search(3) == true);
-  assert(bt.breadth_first_search(INT16_MIN) == false);
+  assert(bst.breadth_first_search(3) == true);
+  assert(bst.breadth_first_search(INT16_MIN) == false);
 
-  assert(bt.depth_first_search(3) == true);
-  assert(bt.depth_first_search(INT16_MIN) == false);
+  assert(bst.depth_first_search(3) == true);
+  assert(bst.depth_first_search(INT16_MIN) == false);
 
   return 0;
 }

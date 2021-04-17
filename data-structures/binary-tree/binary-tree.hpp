@@ -13,8 +13,10 @@ template <typename T> struct BinaryNode {
 };
 
 template <typename T> class BinaryTree {
+protected:
   BinaryNode<T> *_root = nullptr;
 
+private:
   std::vector<T> _pre_order_traversal() const noexcept;
   std::vector<T> _in_order_traversal() const noexcept;
   std::vector<T> _post_order_traversal() const noexcept;
@@ -25,8 +27,6 @@ public:
   BinaryTree() = default;
   ~BinaryTree(); // delete newed
 
-  void insert(T val);
-
   // search
   bool depth_first_search(T val) const noexcept;
   BinaryNode<T> *depth_first_search_ptr(T val) const noexcept;
@@ -36,8 +36,6 @@ public:
 
   // traversal
   std::vector<T> traverse(TreeTraversalMode mode) const noexcept;
-
-private:
 };
 
 template <typename T> BinaryTree<T>::~BinaryTree() {
@@ -56,32 +54,6 @@ template <typename T> BinaryTree<T>::~BinaryTree() {
     }
 
     delete current;
-  }
-}
-
-/// Iterative approach
-template <typename T> void BinaryTree<T>::insert(T val) {
-  BinaryNode<T> *new_node = new BinaryNode<T>(val);
-  if (not _root) {
-    _root = new_node;
-    return;
-  }
-
-  auto current = _root;
-  while (current) {
-    if (val < current->value) {
-      if (not current->left) {
-        current->left = new_node;
-        return;
-      }
-      current = current->left;
-    } else if (val > current->value) {
-      if (not current->right) {
-        current->right = new_node;
-        return;
-      }
-      current = current->right;
-    }
   }
 }
 
