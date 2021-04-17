@@ -29,7 +29,10 @@ public:
 
   // search
   bool depth_first_search(T val) const noexcept;
+  BinaryNode<T> *depth_first_search_ptr(T val) const noexcept;
+
   bool breadth_first_search(T val) const noexcept;
+  BinaryNode<T> *breadth_first_search_ptr(T val) const noexcept;
 
   // traversal
   std::vector<T> traverse(TreeTraversalMode mode) const noexcept;
@@ -83,9 +86,9 @@ template <typename T> void BinaryTree<T>::insert(T val) {
 }
 
 template <typename T>
-bool BinaryTree<T>::depth_first_search(T val) const noexcept {
+BinaryNode<T> *BinaryTree<T>::depth_first_search_ptr(T val) const noexcept {
   if (not _root) {
-    return false;
+    return nullptr;
   }
 
   std::stack<BinaryNode<T> *> s;
@@ -96,7 +99,7 @@ bool BinaryTree<T>::depth_first_search(T val) const noexcept {
     s.pop();
 
     if (current->value == val) {
-      return true;
+      return current;
     }
 
     if (current->right) {
@@ -107,13 +110,18 @@ bool BinaryTree<T>::depth_first_search(T val) const noexcept {
     }
   }
 
-  return false;
+  return nullptr;
 }
 
 template <typename T>
-bool BinaryTree<T>::breadth_first_search(T val) const noexcept {
+bool BinaryTree<T>::depth_first_search(T val) const noexcept {
+  return depth_first_search_ptr(val) != nullptr;
+}
+
+template <typename T>
+BinaryNode<T> *BinaryTree<T>::breadth_first_search_ptr(T val) const noexcept {
   if (not _root) {
-    return false;
+    return nullptr;
   }
 
   std::queue<BinaryNode<T> *> q;
@@ -124,7 +132,7 @@ bool BinaryTree<T>::breadth_first_search(T val) const noexcept {
     q.pop();
 
     if (current->value == val) {
-      return true;
+      return current;
     }
 
     if (current->left) {
@@ -135,7 +143,12 @@ bool BinaryTree<T>::breadth_first_search(T val) const noexcept {
     }
   }
 
-  return false;
+  return nullptr;
+}
+
+template <typename T>
+bool BinaryTree<T>::breadth_first_search(T val) const noexcept {
+  return breadth_first_search_ptr(val) != nullptr;
 }
 
 template <typename T>
