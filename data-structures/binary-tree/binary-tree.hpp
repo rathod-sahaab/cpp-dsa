@@ -3,11 +3,7 @@
 
 #include <bits/stdc++.h>
 
-enum class TreeTraversalMode {
-  PRE_ORDER,
-  IN_ORDER,
-  POST_ORDER,
-};
+enum class TreeTraversalMode { PRE_ORDER, IN_ORDER, POST_ORDER, LEVEL_ORDER };
 
 template <typename T> struct BinaryNode {
   T value;
@@ -22,6 +18,7 @@ template <typename T> class BinaryTree {
   std::vector<T> _pre_order_traversal() const noexcept;
   std::vector<T> _in_order_traversal() const noexcept;
   std::vector<T> _post_order_traversal() const noexcept;
+  std::vector<T> _level_order_traversal() const noexcept;
 
 public:
   // constructors, asssignment, destructor
@@ -228,6 +225,34 @@ std::vector<T> BinaryTree<T>::_post_order_traversal() const noexcept {
 }
 
 template <typename T>
+std::vector<T> BinaryTree<T>::_level_order_traversal() const noexcept {
+  std::vector<T> result;
+
+  if (not _root) {
+    return result;
+  }
+
+  std::queue<BinaryNode<T> *> q;
+  q.push(_root);
+
+  while (not q.empty()) {
+    auto current = q.front();
+    q.pop();
+
+    result.push_back(current->value);
+
+    if (current->left) {
+      q.push(current->left);
+    }
+    if (current->right) {
+      q.push(current->right);
+    }
+  }
+
+  return result;
+}
+
+template <typename T>
 std::vector<T> BinaryTree<T>::traverse(TreeTraversalMode mode) const noexcept {
   switch (mode) {
   case TreeTraversalMode::PRE_ORDER:
@@ -236,6 +261,8 @@ std::vector<T> BinaryTree<T>::traverse(TreeTraversalMode mode) const noexcept {
     return _post_order_traversal();
   case TreeTraversalMode::IN_ORDER:
     return _in_order_traversal();
+  case TreeTraversalMode::LEVEL_ORDER:
+    return _level_order_traversal();
   }
 }
 #endif // BINARY_TREE_HPP

@@ -16,6 +16,7 @@ int main() {
   const auto traversal_pre = bt.traverse(TreeTraversalMode::PRE_ORDER);
   const auto traversal_in = bt.traverse(TreeTraversalMode::IN_ORDER);
   const auto traversal_post = bt.traverse(TreeTraversalMode::POST_ORDER);
+  const auto traversal_level = bt.traverse(TreeTraversalMode::LEVEL_ORDER);
 
   std::vector<int> expected_pre{
       3, 1, 2, 4, 10, 7, 5,
@@ -25,6 +26,9 @@ int main() {
       },
       expected_post{
           2, 1, 5, 7, 10, 4, 3,
+      },
+      expected_level{
+          3, 1, 4, 2, 10, 7, 5,
       };
   std::vector<int> not_expected{
       2, 4, 7, 5, 10,
@@ -45,13 +49,20 @@ int main() {
        std::ostream_iterator<decltype(traversal_post[0])>{std::cout, ", "});
   std::cout << "\n";
 
+  std::cout << "LEVEL_ORDER: ";
+  copy(std::begin(traversal_level), std::end(traversal_level),
+       std::ostream_iterator<decltype(traversal_level[0])>{std::cout, ", "});
+  std::cout << "\n";
+
   assert(traversal_pre == expected_pre);
   assert(traversal_in == expected_in);
   assert(traversal_post == expected_post);
+  assert(traversal_level == expected_level);
 
   assert(traversal_pre != not_expected);
   assert(traversal_in != not_expected);
   assert(traversal_post != not_expected);
+  assert(traversal_level != not_expected);
 
   assert(bt.breadth_first_search(3) == true);
   assert(bt.breadth_first_search(INT16_MIN) == false);
