@@ -1,5 +1,7 @@
 #include <algorithm>
 #include <bits/stdc++.h>
+#include <cassert>
+#include <cstdio>
 #include <unordered_set>
 #include <vector>
 using namespace std;
@@ -30,6 +32,23 @@ bool is_possible(const string &s, const vector<string> &words, vector<int> &dp,
   return false;
 }
 
+bool is_possible_iter(const string &s, const vector<string> &words) {
+  vector<int> dp(s.size() + 1, false);
+  dp[0] = true;
+
+  unordered_set<string> words_set(words.begin(), words.end());
+
+  for (int i = 1; i <= s.size(); ++i) {
+    for (int j = i - 1; j >= 0; --j) {
+      if (dp[j] and words_set.count(s.substr(j, i - j))) {
+        dp[i] = true;
+        continue;
+      }
+    }
+  }
+
+  return dp[s.size()];
+}
 void solve() {
   string to_form;
   cin >> to_form;
@@ -45,7 +64,12 @@ void solve() {
   int M = to_form.length();
   vector<int> dp(M, -1);
 
-  if (is_possible(to_form, words, dp)) {
+  bool is_possible_iter_res = is_possible_iter(to_form, words);
+  bool is_possible_memo_res = is_possible(to_form, words, dp);
+
+  assert(is_possible_memo_res == is_possible_iter_res);
+
+  if (is_possible_iter_res) {
     cout << "Possible\n";
     return;
   }
@@ -54,9 +78,6 @@ void solve() {
 }
 
 int main(int argc, char *argv[]) {
-  ios::sync_with_stdio(false);
-  cin.tie(0);
-
   int T;
   cin >> T;
   while (T--) {
