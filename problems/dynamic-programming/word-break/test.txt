@@ -1,0 +1,13 @@
+3
+abcdef
+3
+ab cd ef
+fastracecar
+4
+astra race car fast 
+fastracecar
+2
+astra fast 
+
+--- ANS ---
+Possible
