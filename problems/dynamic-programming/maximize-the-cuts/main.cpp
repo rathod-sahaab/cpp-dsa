@@ -1,33 +1,16 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-int maximizeTheCuts(vector<int> &dp, int n, int x, int y, int z) {
-  if (n == 0)
-    return 0;
-
-  if (dp[n] != -1) {
-    return dp[n];
-  }
-
-  int xcut = xcut <= n ? maximizeTheCuts(dp, n - x, x, y, z) : 0;
-  int ycut = ycut <= n ? maximizeTheCuts(dp, n - y, x, y, z) : 0;
-  int zcut = zcut <= n ? maximizeTheCuts(dp, n - z, x, y, z) : 0;
-
-  return dp[n] = 1 + max({xcut, ycut, zcut});
-}
-
-int maximizeTheCuts(int n, int x, int y, int z) {
-  vector<int> dp(n + 1, -1);
-  return maximizeTheCuts(dp, n, x, y, z);
-}
-
-int maximizeTheCuts_iter(int n, int x, int y, int z) {
+int maximize_the_cuts(int n, int x, int y, int z) {
   vector<int> dp(n + 1, -1);
   dp[0] = 0;
   for (int i = 1; i <= n; ++i) {
     int max_of_xyz_cut = -1;
+    // if dp[i - {x,y,z}] is '-1' it's invalid i.e.
+    // it cannot be split in parts of x, y, z lengths
 
     if (i >= x and dp[i - x] != -1) {
+      // length of rod is greater than cut and resultant is splitable length
       max_of_xyz_cut = max(1 + dp[i - x], max_of_xyz_cut);
     }
     if (i >= y and dp[i - y] != -1) {
@@ -50,7 +33,7 @@ void solve() {
   int x, y, z;
   cin >> x >> y >> z;
 
-  cout << maximizeTheCuts_iter(N, x, y, z) << "\n";
+  cout << maximize_the_cuts(N, x, y, z) << "\n";
 }
 
 int main(int argc, char *argv[]) {
