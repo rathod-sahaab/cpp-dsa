@@ -1,0 +1,9 @@
+3
+geeks geesks
+abcd bcd
+fjdklfj 3uriu
+
+--- ANS ---
+1
+1
+7
