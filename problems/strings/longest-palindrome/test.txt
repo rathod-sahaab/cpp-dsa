@@ -1,0 +1,9 @@
+3
+abc
+aaaabbaa
+malayalam
+
+--- ANS ---
+a
+aabbaa
+malayalam
