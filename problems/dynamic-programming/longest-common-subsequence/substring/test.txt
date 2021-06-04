@@ -1,0 +1,9 @@
+3
+abcdef abekgd
+abcdefgh ijklmnopqrst
+awex kamr
+
+--- ANS ---
+2
+0
+1
