@@ -1,0 +1,6 @@
+1
+abecdf abcdxo
+
+--- ANS ---
+abcd
+
