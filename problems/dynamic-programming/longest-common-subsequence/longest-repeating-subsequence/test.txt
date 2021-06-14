@@ -1,0 +1,4 @@
+1
+aabebcdc
+--- ANS ---
+3
