@@ -1,0 +1,9 @@
+2
+geeks for geeks
+geek
+a quick brown fox jumps over the lazy dog.
+over
+
+--- ANS ---
+0 10
+24
