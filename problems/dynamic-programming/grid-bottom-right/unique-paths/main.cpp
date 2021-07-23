@@ -25,6 +25,22 @@ int n_paths_memoized(vector<vector<int>> &dp, const int n, const int m,
                              n_paths_memoized(dp, n, m, i, j + 1));
 }
 
+int n_paths_iter(int m, int n) {
+  vector<vector<int>> dp(n + 1, vector<int>(m + 1, 0));
+
+  for (int i = n - 1; i >= 0; --i) {
+    for (int j = m - 1; j >= 0; --j) {
+      if (i == n - 1 and j == m - 1) {
+        dp[i][j] = 1;
+        continue;
+      }
+      dp[i][j] = dp[i + 1][j] + dp[i][j + 1];
+    }
+  }
+
+  return dp[0][0];
+}
+
 int main(int argc, char *argv[]) {
   int n = 15, m = 18;
 
