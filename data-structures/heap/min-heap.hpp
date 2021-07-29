@@ -2,6 +2,8 @@
 #define MIN_HEAP_HPP
 
 #include <bits/stdc++.h>
+#include <type_traits>
+#include <vector>
 
 class MinHeap {
   std::vector<int> data = {0};
@@ -51,6 +53,31 @@ public:
   bool empty() {
     return data.size() < 2;
     // one element is reserved
+  }
+
+  /**
+   * Data array is 1-based, i.e. first element is just for padding
+   */
+  static void heapify(std::vector<int> &data) {
+    if (data.size() <= 2) {
+      return;
+    }
+
+    for (int i = data.size() / 2; i > 0; --i) {
+      int left_child = i * 2, right_child = i * 2 + 1;
+
+      int min_child;
+      if (right_child >= data.size()) {
+        min_child = left_child;
+      } else {
+        min_child =
+            data[left_child] < data[right_child] ? left_child : right_child;
+      }
+
+      if (data[min_child] < data[i]) {
+        std::swap(data[min_child], data[i]);
+      }
+    }
   }
 };
 
