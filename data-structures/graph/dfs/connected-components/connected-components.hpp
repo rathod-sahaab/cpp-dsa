@@ -26,9 +26,9 @@ public:
 
 private:
   void dfs(const UndirectedGraph &graph, int v) {
+    visited[v] = true;
     for (const int child : graph.adj(v)) {
       if (not visited[child]) {
-        visited[child] = true;
         id[child] = count;
         dfs(graph, child);
       }
