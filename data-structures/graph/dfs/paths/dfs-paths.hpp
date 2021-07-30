@@ -10,14 +10,13 @@ using namespace std;
 class DepthFirstPaths {
 public:
   DepthFirstPaths(const UndirectedGraph &graph, int s)
-      : g(graph), visited(graph.get_vertices(), false),
-        prev(graph.get_vertices(), -1), s(s) {
-    dfs(s);
+      : visited(graph.get_vertices(), false), prev(graph.get_vertices(), -1),
+        s(s) {
+    dfs(graph, s);
   }
 
-  int get_count() const { return count; };
-
   bool has_path_to(int v) { return visited[v]; }
+
   vector<int> get_path_to(int v) {
     if (not has_path_to(v)) {
       return {};
@@ -34,29 +33,23 @@ public:
   }
 
 private:
-  void dfs(int v) {
+  void dfs(const UndirectedGraph &graph, int v) {
     visited[v] = true;
-    count++;
 
-    for (const auto vertex : g.adj(v)) {
+    for (const auto vertex : graph.adj(v)) {
       if (not visited[vertex]) {
         prev[vertex] = v;
-        dfs(vertex);
+        dfs(graph, vertex);
       }
     }
   }
 
-  const UndirectedGraph &g;
   int s; // source
   vector<bool> visited;
   /**
    * previous node in path from source
    */
   vector<int> prev;
-  /**
-   * Number of visisted during operation
-   */
-  int count;
 };
 
 #endif // DFS_HPP
