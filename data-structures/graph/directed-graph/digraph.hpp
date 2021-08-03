@@ -32,16 +32,16 @@ public:
 
   static Digraph from_input(istream &in) {
     int n_vertices;
-    cin >> n_vertices;
+    in >> n_vertices;
 
     Digraph graph(n_vertices);
 
     int n_edges;
-    cin >> n_edges;
+    in >> n_edges;
 
     while (n_edges--) {
       int src, dest;
-      cin >> src >> dest;
+      in >> src >> dest;
       graph.add_edge(src, dest);
     }
 
