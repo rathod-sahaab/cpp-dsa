@@ -9,9 +9,9 @@ class Digraph {
 public:
   // constructors, asssignment, destructor
   Digraph(int vertices) : graph(vertices) {}
-  int V() { return graph.size(); }
-  int E() { return edges; }
-  vector<int> adj(int vertex);
+  int V() const { return graph.size(); }
+  int E() const { return edges; }
+  vector<int> adj(int vertex) const { return graph[vertex]; }
 
   Digraph reverse() {
     Digraph reversed_graph(V());
@@ -46,6 +46,18 @@ public:
     }
 
     return graph;
+  }
+
+  void print(ostream &out) {
+    for (int i = 0; i < V(); ++i) {
+      cout << i << ": ";
+
+      for (const int child : adj(i)) {
+        cout << child << " ";
+      }
+
+      cout << "\n";
+    }
   }
 
 private:
