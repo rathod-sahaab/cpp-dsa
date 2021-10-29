@@ -26,7 +26,7 @@ void solve() {
   std::cout << max_product_xp(C) << "\n";
 }
 
-int main(long long argc, char *argv[]) {
+int main(int argc, char *argv[]) {
   ios::sync_with_stdio(false);
   cin.tie(0);
 
