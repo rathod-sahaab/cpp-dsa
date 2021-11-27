@@ -11,7 +11,7 @@ void solve() {
     cin >> num;
   }
 
-  SqrtDecomposition<int> sd(nums);
+  MinimumSqrtDecomposition<int> sd(nums);
 
   int queries;
   cin >> queries;
